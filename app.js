@@ -25,7 +25,7 @@ function getPreferences() {
 };
 var preferences = getPreferences();
 
-/*
+
 // manual command execution
 // for development
 function cmdExec() {
@@ -35,7 +35,7 @@ function cmdExec() {
     $('#sm-output').val(cmdout);
   });
 };
-*/
+
 
 var connection_settings_list = {
   title: 'Volume title',
@@ -188,10 +188,13 @@ function generateMountCommand(connection_settings) {
     cmd.push(connection_settings['server'] + ':' + connection_settings['remote']);
   };
   cmd.push(connection_settings['mount']);
-  cmd.push('-o ' + options.join(','));
+
+  
+  //cmd.push('-o ' + options.join(','));
   if (connection_settings['port']) {
     cmd.push('-p ' + connection_settings['port']);
   };
+    
   return cmd.join(' ');
 };
 
@@ -216,6 +219,7 @@ function getProperties() {
 
 function mount() {
   var cmd = generateMountCommand(getProperties());
+  console.log(cmd)
   var escaped_cmd = cmd;
   if (cmd.substring(0, 4) == 'echo') {
     var password = cmd.substring(5, cmd.lastIndexOf(' |'));
